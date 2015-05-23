@@ -4,6 +4,9 @@ var Routes = function(options){
     $.extend(vars, options);
 
     var routes = {
+        '^#/login$' : function(params) {
+            SessionsController.index(params);
+        },
         '^$' : function(params) {
             // Default Route
             SampleController.index(params);

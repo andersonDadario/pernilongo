@@ -61,25 +61,3 @@ MessageHelper.FormErrorMessage = {
         currentLayer().prepend(msg);
     }
 }
-
-
-// Gritter
-MessageHelper.SuccessGritter = {
-    create: function(text){
-        $.gritter.add({
-          title: 'Success',
-          text: text,
-          class_name: 'success'
-        });
-    }
-}
-
-MessageHelper.ErrorGritter = {
-    create: function(text){
-        $.gritter.add({
-          title: 'Error',
-          text: text,
-          class_name: 'danger'
-        });
-    }
-}

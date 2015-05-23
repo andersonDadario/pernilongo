@@ -9,36 +9,17 @@ HttpHelper.loadPage = function(extended_options){
     'method' : 'GET',
     'headers' : {},
     'data' : '',
-    'modal' : {
-      'enabled' : false,
-      'title' : 'Dialog',
-      'hide_close' : false,
-      'params' : { 'show' : true }
-    },
-    'replace_element' : '#content',
+    'replace_element' : conf['deployTarget'],
     'statusCode' : {},
-    'successFunction' : function(data, textStatus, jqXHR){
+    'success' : function(data, textStatus, jqXHR){
       if(options['context']){
         var template = Handlebars.compile(data);
         var data = template(options['context']);
       }
 
-      // Is Modal?
-      if(options['modal']['enabled']){
-        if(options['modal']['hide_close']){
-          $("#gpmodal > .modal-dialog > .modal-content > .modal-header > button").hide();
-        } else {
-          $("#gpmodal > .modal-dialog > .modal-content > .modal-header > button").show();
-        }
-
-        $("#gpmodal > .modal-dialog > .modal-content > .modal-body").html(data);
-        $("#gpmodal > .modal-dialog > .modal-content > .modal-header > h3").html(options['modal']['title']);
-        $('#gpmodal').modal(options['modal']['params']);
-      } else {
-        $(options['replace_element']).html(data);
-      }
+      $(options['replace_element']).html(data);
     },
-    'errorFunction' : function(jqXHR, textStatus, errorThrown){
+    'error' : function(jqXHR, textStatus, errorThrown){
       if(jqXHR.status != "401"){
         MessageHelper.ErrorMessage.create(
           "Error while loading <i>" + path + "</i>"
@@ -51,7 +32,7 @@ HttpHelper.loadPage = function(extended_options){
         forwardTo('#/login');
       }
     },
-    'callback' : function(){},
+    'complete' : function(jqXHR, textStatus){},
     'skip_loading' : false,
     'skip_remove_loading' : false
   }
@@ -92,17 +73,17 @@ HttpHelper.loadPage = function(extended_options){
       withCredentials: true
     },
     statusCode: options['statusCode'],
-    success: options['successFunction'],
+    success: options['success'],
     error: function(jqXHR, textStatus, errorThrown){
-      options['errorFunction'](jqXHR, textStatus, errorThrown);
-      options['errorFunctionEpilogue'](jqXHR, textStatus, errorThrown);
+      options['error'](jqXHR, textStatus, errorThrown);
+      options['errorEpilogue'](jqXHR, textStatus, errorThrown);
     },
     complete: function(jqXHR, textStatus){
       if(!options['skip_remove_loading']){
         LoadingHelper.remove(path);
       }
       
-      options['callback']();
+      options['complete'](jqXHR, textStatus);
       epilogueCallback(options['apiUrl']);
     }
   });

@@ -6,11 +6,10 @@ LoadingHelper.doesLoadingExist = function(label){
 
 LoadingHelper.create = function(label){
     var display = '';
-    if($(".loading").length > 0) display = '; display:none';
+    if($(".loading").length > 0) display = 'display:none';
 
-    var style = 'style="background-color: #FFF; border:1px dotted orange' + display + '"';
-    var loading = '<div class="alert loading" data-label="'+label+'" '+style+'>';
-    // loading += '<img src="images/spin.gif" alt="Loading..." /> ';
+    var loading = '<div class="alert loading" data-label="'+label+'" style="'+display+'"">';
+    // loading += '<img src="'+conf['assetsUrl']+'images/spin.gif" alt="Loading..." /> ';
     loading += 'Loading...';
     loading += '</div>';
 
