@@ -5,7 +5,7 @@ var Routes = function(options){
 
     var routes = {
         '^#/login$' : function(params) {
-            SessionsController.index(params);
+            SessionsController.new(params);
         },
         '^$' : function(params) {
             // Default Route
