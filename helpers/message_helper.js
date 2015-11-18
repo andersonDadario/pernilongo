@@ -5,11 +5,11 @@ var MessageHelper = function(){}
 MessageHelper.BaseMessage = function(text, style){
     var msg = '<div class="alert" style="'+(style ? style : '')+'">';
     msg += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>';
-    msg += '<i class="fa sign"></i><strong></strong> ';
-    msg += text;
-    msg += '</div>';
+    msg += '<i class="fa sign"></i><strong></strong> <span class="basemessage"></span></div>';
+    msg = $(msg);
+    msg.find(".basemessage").text(text);
 
-    return $(msg);
+    return msg;
 }
 
 MessageHelper.InfoMessage = {
