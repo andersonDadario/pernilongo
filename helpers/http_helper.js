@@ -22,7 +22,7 @@ HttpHelper.loadPage = function(extended_options){
     'error' : function(jqXHR, textStatus, errorThrown){
       if(jqXHR.status != "401"){
         MessageHelper.ErrorMessage.create(
-          "Error while loading <i>" + path + "</i>"
+          "Error while loading " + path
         );
       }
     },
