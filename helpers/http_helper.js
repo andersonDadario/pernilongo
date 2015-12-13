@@ -26,7 +26,7 @@ HttpHelper.loadPage = function(extended_options){
         );
       }
     },
-    'errorFunctionEpilogue' : function(jqXHR, textStatus, errorThrown){
+    'errorEpilogue' : function(jqXHR, textStatus, errorThrown){
       if(jqXHR.status == "401"){
         defaultPersistence.store('after_login', extended_options);
         forwardTo('#/login');
